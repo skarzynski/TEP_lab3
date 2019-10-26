@@ -16,26 +16,32 @@ private:
 	int tableLength;		//długość tablicy
 	int* table;				//wskaźnik na tablicę
 
+	void fillWithFives();				//wypełnia tablicę cyfrą 5
+
 public:
 
 	Table();				//konstruktor bezparametrowy z domyślnymi wartościami
 	Table(string name, int tableLength, string password);  //konstruktor z parametrami
-	Table(Table &otherTable);			//konstruktor kopiujący
+	Table(const Table &otherTable);			//konstruktor kopiujący
 
 	~Table();				//destruktor
 
-	string getName();					//metoda zwraca nazwę tablicy
-	void setName(string newName);		//metoda zmienia nazwę tablicy
-	void setPassword(string newPassword);	//metoda ustawia nowe hasło (musi się różnić o dwa znaki)
-	int getSize();						//metoda zwraca długość tablicy
-	bool setNewSize(int newSize);		//metoda zmienia długość tablicy
-	int* getTable();					//metoda zwraca tablicę
-	void setTable(int* newTable);		//metoda ustawia nową tablicę
-	Table* cloneTable();				//metoda klonująca obiekt (Zbędna. Powiela funkcjonalność konstruktora kopiującego)
-	void setSize(int newSize);			//metoda zmienia parametr tableLength
+	string getName();					//zwraca nazwę tablicy
+	void setName(string newName);		//zmienia nazwę tablicy
+	void setPassword(string newPassword);	//ustawia nowe hasło (musi się różnić o dwa znaki)
+	int getSize();						//zwraca długość tablicy
+	bool setNewSize(int newSize);		//zmienia długość tablicy
+	int* getTable();					//zwraca tablicę
+	void setTable(int* newTable);		//ustawia nową tablicę
+	Table* cloneTable();				//klonująca obiekt (Zbędna. Powiela funkcjonalność konstruktora kopiującego)
+	void setSize(int newSize);			//zmienia parametr tableLength
+	void setValueAt(int position, int newValue); //ustawia nową wartość na zadanej pozycji
 
-	void showTable();					//metoda wyœwietlająca nazwę, długość i zawartość tablicy
+	Table operator + (Table &newValue);	//operator + zwracający konkatenację dwóch tablic
+
+	void showTable();					//wyœwietla nazwę, długość i zawartość tablicy
 	bool checkPassword(string password); //sprawdza czy hasło jest poprawne
 	bool checkNewPassword(string oldPassword, string newPassword); //sprawdza czy hasło różni się od poprzedniego o dwa znaki
+
 
 };

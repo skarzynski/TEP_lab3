@@ -20,6 +20,7 @@ Table::Table() {
 	cout << "bezp: " << this->name << endl;
 
 	this->table = new int[this->tableLength];
+	fillWithFives();
 }
 
 Table::Table(string name, int tableLength, string password) {
@@ -37,9 +38,10 @@ Table::Table(string name, int tableLength, string password) {
 	cout << "parametr: " << this->name << endl;
 
 	this->table = new int[this->tableLength];
+	fillWithFives();
 }
 
-Table::Table(Table &otherTable) {
+Table::Table(const Table &otherTable) {
 	if (&otherTable == nullptr) {
 		cout << BAD_PARAMS << endl;
 		return;
@@ -57,7 +59,7 @@ Table::Table(Table &otherTable) {
 }
 
 Table::~Table() {
-	delete[] this->table;
+	//delete[] this->table;
 
 	cout << "usuwam: " << this->name << endl;
 }
@@ -88,7 +90,6 @@ int Table::getSize() {
 }
 
 bool Table::setNewSize(int newSize) {
-	int iterationLength = this->tableLength;
 	if (newSize < 1 || newSize > 1000) {
 		cout << BAD_PARAMS << endl;
 		return false;
@@ -105,13 +106,17 @@ bool Table::setNewSize(int newSize) {
 			return false;
 		}
 
-		iterationLength = newSize;
 	}
 
 	int* new_table = new int[newSize];
 
-	for (int i = 0; i < iterationLength; i++) {
-		new_table[i] = this->table[i];
+	for (int i = 0; i < newSize; i++) {
+		if (i >= this->tableLength) {
+			new_table[i] = 0;
+		}
+		else {
+			new_table[i] = this->table[i];
+		}
 	}
 
 	delete[] this->table;
@@ -144,6 +149,23 @@ void Table::setSize(int newSize) {
 		return;
 	}
 	this->tableLength = newSize;
+}
+
+void Table::setValueAt(int position, int newValue) {
+	if (position >= this->tableLength) {
+		cout << BAD_PARAMS << endl;
+		return;
+	}
+	this->table[position] = newValue;
+}
+
+Table Table::operator + (Table &newValue) {
+	int newLength = this->tableLength + newValue.tableLength;
+	Table newTable("default", newLength, "P@ssw0rd");
+	copy(this->table, this->table + this->tableLength, newTable.table);
+	copy(newValue.table, newValue.table + newValue.tableLength, newTable.table + this->tableLength);
+
+	return newTable;
 }
 
 void Table::showTable() {
@@ -227,4 +249,10 @@ bool Table::checkNewPassword(string oldPassword, string newPassword) {
 	}
 
 	return isValid;
+}
+
+void Table::fillWithFives() {
+	for (int i = 0; i < this->tableLength; i++){
+		table[i] = 5;
+	}
 }

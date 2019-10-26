@@ -10,33 +10,25 @@
 using namespace std;
 
 int main() {
-	Table t1;
-	Table t2("test_param", 7, "P@s0");
-	Table t3(t2);
+	
+	Table t0, t1;
 
+	t0.setNewSize(6);
+	t1.setNewSize(4);
+
+	for (int i = 0; i < 6; i++) {
+		t0.setValueAt(i, i + 1);
+	}
+	for (int i = 0; i < 4; i++) {
+		t1.setValueAt(i, i + 51);
+	}
+
+	t1.setValueAt(2, 123);
+	t0.showTable();
 	t1.showTable();
-	t2.showTable();
+
+	Table t3 = t0 + t1;
 	t3.showTable();
-
-	t1.setName("new_name");
-	t1.showTable();
-
-	t2.setNewSize(5);
-	t2.showTable();
-	t3.showTable();
-	t2.setNewSize(9);
-	t2.showTable();
-
-	Table* new_cloned_tab;
-	new_cloned_tab = t2.cloneTable();
-
-	(*new_cloned_tab).showTable();
-
-	modifyTable(t1, 20);
-	t1.showTable();
-	modifyTable(&t1, 20);
-	t1.showTable();
-
 
 	return 0;
 }
