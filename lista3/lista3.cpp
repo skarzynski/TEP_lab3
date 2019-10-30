@@ -30,6 +30,16 @@ int main() {
 	Table t3 = t0 + t1;
 	t3.showTable();
 
+	cout << "-----" << endl;
+
+	t3 << 6;
+	t3.showTable();
+	
+	cout << "-----" << endl;
+
+	t3 >> 3;
+	t3.showTable();
+
 	return 0;
 }
 

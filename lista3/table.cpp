@@ -182,6 +182,37 @@ Table Table::operator + (Table &newValue) {
 	return newTable;
 }
 
+void Table::operator << (int position) {
+	if (position < 0 || position > this->tableLength) {
+		cout << BAD_PARAMS << endl;
+		return;
+	}
+	
+	Table newTable("default", this->tableLength, "P@ssw0rd");
+	for (int i = position; i < this->tableLength; i++) {
+		newTable.table[i - position] = this->table[i];
+	}
+	for (int i = newTable.tableLength - position; i < newTable.tableLength; i++) {
+		newTable.table[i] = 0;
+	}
+	this->setTable(newTable.table);
+}
+
+void Table::operator >> (int position) {
+	if (position < 0 || position > this->tableLength) {
+		cout << BAD_PARAMS << endl;
+		return;
+	}
+	Table newTable("default", this->tableLength, "P@ssw0rd");
+	for (int i = 0; i < position; i++) {
+		newTable.table[i] = 0;
+	}
+	for (int i = position; i < this->tableLength; i++) {
+		newTable.table[i] = this->table[i - position];
+	}
+	this->setTable(newTable.table);
+}
+
 void Table::showTable() {
 	cout << endl << "name: " << this->name << endl;
 	cout << "length: " << this->tableLength << endl;

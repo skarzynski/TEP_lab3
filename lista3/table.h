@@ -40,6 +40,8 @@ public:
 	void setValueAt(int position, int newValue); //ustawia nową wartość na zadanej pozycji
 
 	Table operator + (Table &newValue);	//operator + zwracający konkatenację dwóch tablic
+	void operator << (int position);	//operator << przesuwający tablicę o zadaną liczbę pozycji w lewo
+	void operator >> (int position);	//operator >> przesuwający tablicę o zadaną liczbę pozycji w prawo
 
 	void showTable();					//wyœwietla nazwę, długość i zawartość tablicy
 	bool checkPassword(string password); //sprawdza czy hasło jest poprawne
