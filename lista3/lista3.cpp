@@ -10,7 +10,7 @@
 using namespace std;
 
 int main() {
-	
+
 	Table t0, t1;
 
 	t0.setNewSize(6);
@@ -23,7 +23,7 @@ int main() {
 		t1.setValueAt(i, i + 51);
 	}
 
-	t1.setValueAt(2, 123);
+	t1.setValueAt(-2, 123);
 	t0.showTable();
 	t1.showTable();
 
@@ -32,13 +32,13 @@ int main() {
 
 	cout << "-----" << endl;
 
-	t3 << 6;
-	t3.showTable();
-	
+	Table t4 = t3 << 6;
+	t4.showTable();
+
 	cout << "-----" << endl;
 
-	t3 >> 3;
-	t3.showTable();
+	Table t5 = t4 >> 3;
+	t5.showTable();
 
 	return 0;
 }

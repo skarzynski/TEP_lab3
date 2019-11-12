@@ -59,7 +59,7 @@ Table::Table(const Table &otherTable) {
 }
 
 Table::~Table() {
-	//delete[] this->table;
+	delete[] this->table;
 
 	cout << "usuwam: " << this->name << endl;
 }
@@ -166,7 +166,7 @@ void Table::setSize(int newSize) {
 }
 
 void Table::setValueAt(int position, int newValue) {
-	if (position >= this->tableLength) {
+	if (position < 0 || position >= this->tableLength) {
 		cout << BAD_PARAMS << endl;
 		return;
 	}
@@ -182,12 +182,12 @@ Table Table::operator + (Table &newValue) {
 	return newTable;
 }
 
-void Table::operator << (int position) {
+Table Table::operator << (int position) {
 	if (position < 0 || position > this->tableLength) {
 		cout << BAD_PARAMS << endl;
-		return;
+		return *this;
 	}
-	
+
 	Table newTable("default", this->tableLength, "P@ssw0rd");
 	for (int i = position; i < this->tableLength; i++) {
 		newTable.table[i - position] = this->table[i];
@@ -195,13 +195,13 @@ void Table::operator << (int position) {
 	for (int i = newTable.tableLength - position; i < newTable.tableLength; i++) {
 		newTable.table[i] = 0;
 	}
-	this->setTable(newTable.table);
+	return newTable;
 }
 
-void Table::operator >> (int position) {
+Table Table::operator >> (int position) {
 	if (position < 0 || position > this->tableLength) {
 		cout << BAD_PARAMS << endl;
-		return;
+		return *this;
 	}
 	Table newTable("default", this->tableLength, "P@ssw0rd");
 	for (int i = 0; i < position; i++) {
@@ -210,7 +210,7 @@ void Table::operator >> (int position) {
 	for (int i = position; i < this->tableLength; i++) {
 		newTable.table[i] = this->table[i - position];
 	}
-	this->setTable(newTable.table);
+	return newTable;
 }
 
 void Table::showTable() {
@@ -297,7 +297,7 @@ bool Table::checkNewPassword(string oldPassword, string newPassword) {
 }
 
 void Table::fillWithFives() {
-	for (int i = 0; i < this->tableLength; i++){
+	for (int i = 0; i < this->tableLength; i++) {
 		table[i] = 5;
 	}
 }
